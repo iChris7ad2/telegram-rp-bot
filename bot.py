@@ -11,6 +11,20 @@ ADMINS = [5543310890]
 def is_admin(user_id):
     return user_id in ADMINS
 
+konten = {}
+jobs = {}
+last_work = {}
+
+START_GELD = 1000
+COOLDOWN = 4 * 60 * 60
+
+JOB_GEHÄLTER = {
+    "polizist": 3000,
+    "boss": 10000,
+    "krankenpfleger": 2500
+}
+
+# ---------------- START ----------------
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     user = update.effective_user.id
 
@@ -32,37 +46,6 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
         "🛡️ ADMIN:\n"
         "• /cheatmoney (nur Admin)\n\n"
         "Starte jetzt dein Leben im RP!"
-    )
-
-konten = {}
-jobs = {}
-last_work = {}
-
-START_GELD = 1000
-COOLDOWN = 4 * 60 * 60
-
-JOB_GEHÄLTER = {
-    "polizist": 3000,
-    "boss": 10000,
-    "krankenpfleger": 2500
-}
-
-# ---------------- START ----------------
-async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    user = update.effective_user.id
-
-    if user not in konten:
-        konten[user] = START_GELD
-
-    await update.message.reply_text(
-        "🏙️ Willkommen im RP!\n\n"
-        "Jobs:\n"
-        "/getjob_polizist\n"
-        "/getjob_boss\n"
-        "/getjob_krankenpfleger\n\n"
-        "Commands:\n"
-        "/konto\n"
-        "/arbeiten"
     )
 
 # ---------------- KONTO ----------------
