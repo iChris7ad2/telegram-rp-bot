@@ -111,6 +111,8 @@ async def arbeiten(update: Update, context: ContextTypes.DEFAULT_TYPE):
         f"💼 Du hast als {job} gearbeitet\n"
         f"💰 +{geld} € erhalten!"
     )
+    async def myid(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    await update.message.reply_text(f"Deine ID: {update.effective_user.id}")
 
 # ---------------- BOT ----------------
 app = Application.builder().token(TOKEN).build()
@@ -122,6 +124,7 @@ app.add_handler(CommandHandler("arbeiten", arbeiten))
 app.add_handler(CommandHandler("getjob_polizist", set_job))
 app.add_handler(CommandHandler("getjob_boss", set_job))
 app.add_handler(CommandHandler("getjob_krankenpfleger", set_job))
+app.add_handler(CommandHandler("myid", myid))
 
 print("Bot läuft...")
 app.run_polling()
