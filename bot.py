@@ -6,6 +6,11 @@ import random
 
 TOKEN = os.getenv("BOT_TOKEN")
 
+ADMINS = [5543310890]
+
+def is_admin(user_id):
+    return user_id in ADMINS
+
 konten = {}
 jobs = {}
 last_work = {}
@@ -115,6 +120,29 @@ async def arbeiten(update: Update, context: ContextTypes.DEFAULT_TYPE):
 async def myid(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await update.message.reply_text(f"Deine ID: {update.effective_user.id}")
 
+async def cheatmoney(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    user = update.effective_user.id
+
+    if not is_admin(user):
+        await update.message.reply_text("❌ Kein Zugriff.")
+        return
+
+    if len(context.args) < 2:
+        await update.message.reply_text("Nutze: /cheatmoney user_id betrag")
+        return
+
+    target_id = int(context.args[0])
+    amount = int(context.args[1])
+
+    if target_id not in konten:
+        konten[target_id] = START_GELD
+
+    konten[target_id] += amount
+
+    await update.message.reply_text(
+        f"💰 {amount} € wurden an User {target_id} gegeben."
+    )
+
 # ---------------- BOT ----------------
 app = Application.builder().token(TOKEN).build()
 
@@ -126,6 +154,7 @@ app.add_handler(CommandHandler("getjob_polizist", set_job))
 app.add_handler(CommandHandler("getjob_boss", set_job))
 app.add_handler(CommandHandler("getjob_krankenpfleger", set_job))
 app.add_handler(CommandHandler("myid", myid))
+app.add_handler(CommandHandler("cheatmoney", cheatmoney))
 
 print("Bot läuft...")
 app.run_polling()
