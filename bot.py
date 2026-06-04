@@ -111,7 +111,8 @@ async def arbeiten(update: Update, context: ContextTypes.DEFAULT_TYPE):
         f"💼 Du hast als {job} gearbeitet\n"
         f"💰 +{geld} € erhalten!"
     )
-    async def myid(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    
+async def myid(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await update.message.reply_text(f"Deine ID: {update.effective_user.id}")
 
 # ---------------- BOT ----------------
