@@ -11,6 +11,29 @@ ADMINS = [5543310890]
 def is_admin(user_id):
     return user_id in ADMINS
 
+async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    user = update.effective_user.id
+
+    if user not in konten:
+        konten[user] = START_GELD
+
+    if user not in jobs:
+        jobs[user] = "Arbeitslos"
+
+    await update.message.reply_text(
+        "🏙️ Willkommen im Real-Life RP Server!\n\n"
+        "💼 JOBS:\n"
+        "• /getjob_polizist (3000€)\n"
+        "• /getjob_boss (10000€)\n"
+        "• /getjob_krankenpfleger (2500€)\n\n"
+        "💰 ECONOMY:\n"
+        "• /konto - dein Geld & Job\n"
+        "• /arbeiten - Geld verdienen (alle 4h)\n\n"
+        "🛡️ ADMIN:\n"
+        "• /cheatmoney (nur Admin)\n\n"
+        "Starte jetzt dein Leben im RP!"
+    )
+
 konten = {}
 jobs = {}
 last_work = {}
